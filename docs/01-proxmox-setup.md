@@ -16,18 +16,5 @@ reboot
 ```
 
 ## 3. Verify Web UI
-- Log in at https://<your-ip>:8006
+- Log in at `https://<your-ip>:8006`
 - Confirm node shows “up to date”
-```bash
-
----
-# 📝 Example `02-k3s-install.md`
-
-```markdown
-# K3s Install
-
-## Master Node
-```bash
-curl -sfL https://get.k3s.io | sh -
-
-```
