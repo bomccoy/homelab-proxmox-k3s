@@ -1,20 +1,39 @@
-# Proxmox Initial Setup
+# Switch Proxmox to No-Subscription Repo (via UI)
+1. Log into Proxmox Web UI
+* Go to https://<your-proxmox-ip>:8006
+* Log in as root.
 
-After installing Proxmox:
+2. Select your node
+* In the left tree, click on your Proxmox node (e.g., andromeda).
 
-## 1. Switch to No-Subscription Repo
-```bash
-rm /etc/apt/sources.list.d/pve-enterprise.list
-echo "deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription" \
-  > /etc/apt/sources.list.d/pve-no-subscription.list
+3. Go to Repositories
+* Top menu: Updates → Repositories
+
+4. Remove Enterprise Repo
+* Select the line that contains:
+```
+deb https://enterprise.proxmox.com/debian/pve ...
+```
+* Click Disable (or Remove if you prefer).
+
+5. Add the No-Subscription Repo
+* Click Add → No-Subscription
+* A new repo line appears:
+```
+deb http://download.proxmox.com/debian/pve bookworm pve-no-subscription
 ```
 
-## 2. Update & Reboot
-```bash
-apt update && apt full-upgrade -y
-reboot
+6. Verify
+* Make sure you now only see the no-subscription repo and (optionally) security updates repo.
+
+7. Update package list
+* Still under Updates, click Refresh.
+* Or run from the Proxmox Shell:
+```
+apt update
 ```
 
-## 3. Verify Web UI
-- Log in at `https://<your-ip>:8006`
-- Confirm node shows “up to date”
+8. (Optional) Remove Ceph enterprise repos
+* If you’re not running Ceph, you can safely disable those repos as well.
+
+✅ That’s it — you’re now on the community (no-subscription) repo, and you’ll be able to update without subscription errors.
